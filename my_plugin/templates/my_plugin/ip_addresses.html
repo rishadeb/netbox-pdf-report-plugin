@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IP Addresses</title>
+</head>
+<style>
+    table {
+        width: 50%;
+        border-collapse: collapse;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #c1e8ed;
+    }
+</style>
+<body>
+    <h1>IP Addresses</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>IP Address</th>
+                <th>Assigned</th>
+                <th>Description</th>
+                <th>Interface</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ip in ip_addresses %}
+            <tr>
+                <td>{{ ip.address }}</td>
+                <td>{{ ip.assigned_object }}</td>
+                <td>{{ ip.description }}</td>
+                <td>{{ ip.interface }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form action="{% url 'export_ip_addresses_pdf' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Export to PDF</button>
+    </form>
+</body>
+</html>
